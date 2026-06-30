@@ -1,0 +1,11 @@
+server:
+  address: "testrfc7030.com"
+  secure_port: 8443
+  non_secure_port: 8080 # Reserved for potential non-HTTPS operations
+
+credentials:
+  username: "estuser"
+  password: "estpwd"
+
+client:
+  common_name: "device-001.example.com"
