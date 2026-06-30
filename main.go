@@ -8,7 +8,6 @@ import (
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"encoding/base64"
-	"encoding/pem"
 	"fmt"
 	"io"
 	"log"
@@ -182,7 +181,7 @@ func main() {
 
 	// 1. Generate CSR & Private Key for initial enrollment
 	fmt.Println("[1] Generating CSR for initial enrollment...")
-	csrDER, privateKey, err := GenerateCSR(cfg.Client.CommonName)
+	csrDER, _, err := GenerateCSR(cfg.Client.CommonName) // Changed privateKey to _
 	if err != nil {
 		log.Fatalf("Error generating CSR: %v", err)
 	}
@@ -196,7 +195,8 @@ func main() {
 		log.Fatalf("Enrollment failed: %v\nNote: If using testrfc7030.com, it might be offline or require specific CAs.", err)
 	}
 	
-	fmt.Println("Enrollment successful! Received PKCS7 payload.")
+	// Now we use pkcs7B64 to print out the length of the payload
+	fmt.Printf("Enrollment successful! Received %d bytes of PKCS7 payload.\n", len(pkcs7B64))
 	// (In a real app, you would parse the PKCS7 base64 payload here to extract your x509.Certificate.
 	// You might use a package like go.mozilla.org/pkcs7 for this).
 
