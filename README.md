@@ -49,4 +49,3 @@ if err \== nil && len(p7.Certificates) \> 0 {
     // Save or use myNewCert...  
 }
 ```
-
